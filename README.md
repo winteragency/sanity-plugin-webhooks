@@ -9,6 +9,8 @@
 
 A tool that lists your Sanity webhooks and displays their events along with status, duration and response.
 
+![Screenshot of the tool in action](https://github.com/winteragency/sanity-plugin-webhook/assets/7823044/41c435d0-fabc-4597-96c7-a149c9dbc88c)
+
 ## Installation
 
 ```sh
@@ -110,6 +112,11 @@ export default defineConfig({
   plugins: [webhooks({ webhookBodyComponent: WebhookBody })]
 });
 ```
+
+This will result in a more comprehensive event log:
+
+![webhooks-customized](https://github.com/winteragency/sanity-plugin-webhook/assets/7823044/ddafc23d-a63a-4e1a-bcf7-88e67bb19e7f)
+
 
 ## License
 
