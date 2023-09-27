@@ -1,4 +1,13 @@
-import { Badge, Card, Flex, Heading, Inline, Stack, Text } from '@sanity/ui';
+import {
+  Badge,
+  Card,
+  Flex,
+  Heading,
+  Inline,
+  Spinner,
+  Stack,
+  Text
+} from '@sanity/ui';
 import { FC, useEffect, useState } from 'react';
 import { useClient, useDataset, useProjectId } from 'sanity';
 import { Link, useRouter } from 'sanity/router';
@@ -39,7 +48,7 @@ export function Webhooks({
   const [webhookId, setWebhookId] = useState<string | null>(null);
   const client = useClient({ apiVersion }).withConfig({ requestTagPrefix: '' });
 
-  const webhooksResponse: SWRResponse<SanityWebhook[], Error> = useSWR(
+  const { isLoading, data }: SWRResponse<SanityWebhook[], Error> = useSWR(
     `hooks/projects/${projectId}`,
     (uri: string) =>
       client.request({
@@ -48,7 +57,7 @@ export function Webhooks({
   );
 
   const webhooks =
-    webhooksResponse?.data?.filter(
+    data?.filter(
       (webhook) =>
         webhook.dataset === '*' ||
         (Array.isArray(webhook.dataset) && webhook.dataset.includes(dataset)) ||
@@ -74,78 +83,85 @@ export function Webhooks({
                 </Heading>
               </Inline>
 
-              {webhooks.length === 0 && (
+              {isLoading && (
+                <Flex align="center" justify="center">
+                  <Spinner muted />
+                </Flex>
+              )}
+
+              {!isLoading && webhooks.length === 0 && (
                 <Card padding={[1, 2]} radius={3} tone="caution">
                   No webhooks are configured for the current dataset.
                 </Card>
               )}
 
-              {webhooks?.map((webhook) => (
-                <Link
-                  key={webhook.id}
-                  href={`${
-                    router
-                      .resolvePathFromState(router.state)
-                      .split('/webhooks/')[0]
-                  }/webhooks/${webhook.id}`}
-                >
-                  <Card
-                    padding={[3, 3, 3, 4]}
-                    radius={2}
-                    shadow={1}
-                    tone={
-                      webhookId && webhookId === webhook.id
-                        ? 'primary'
-                        : undefined
-                    }
+              {!isLoading &&
+                webhooks?.map((webhook) => (
+                  <Link
+                    key={webhook.id}
+                    href={`${
+                      router
+                        .resolvePathFromState(router.state)
+                        .split('/webhooks/')[0]
+                    }/webhooks/${webhook.id}`}
                   >
-                    <Flex justify="space-between" align="center">
-                      <Stack space={4}>
-                        <Text size={[2, 3]}>
-                          <Flex
-                            wrap="wrap"
-                            gap={[3]}
-                            style={{ rowGap: 2 }}
-                            align="center"
-                          >
-                            {webhook.name}
-                            <Inline>
-                              <Badge
-                                tone={
-                                  webhook.isDisabled ? 'critical' : 'positive'
-                                }
-                              >
-                                {webhook.isDisabled ? 'Disabled' : 'Enabled'}
-                              </Badge>
-                            </Inline>
-                          </Flex>
-                        </Text>
+                    <Card
+                      padding={[3, 3, 3, 4]}
+                      radius={2}
+                      shadow={1}
+                      tone={
+                        webhookId && webhookId === webhook.id
+                          ? 'primary'
+                          : undefined
+                      }
+                    >
+                      <Flex justify="space-between" align="center">
+                        <Stack space={4}>
+                          <Text size={[2, 3]}>
+                            <Flex
+                              wrap="wrap"
+                              gap={[3]}
+                              style={{ rowGap: 2 }}
+                              align="center"
+                            >
+                              {webhook.name}
+                              <Inline>
+                                <Badge
+                                  tone={
+                                    webhook.isDisabled ? 'critical' : 'positive'
+                                  }
+                                >
+                                  {webhook.isDisabled ? 'Disabled' : 'Enabled'}
+                                </Badge>
+                              </Inline>
+                            </Flex>
+                          </Text>
 
-                        <Stack space={2}>
-                          <BadgeRow
-                            heading="Dataset"
-                            badges={[webhook.dataset]}
-                            tone="default"
-                            wrap="nowrap"
-                          />
-                          <BadgeRow
-                            heading="ID"
-                            badges={[webhook.id]}
-                            tone="default"
-                            wrap="nowrap"
-                          />
-                          <BadgeRow
-                            heading="URL"
-                            badges={[webhook.url]}
-                            tone="default"
-                            wrap="nowrap"
-                          />
+                          <Stack space={2}>
+                            <BadgeRow
+                              heading="Dataset"
+                              badges={[webhook.dataset]}
+                              tone="default"
+                              wrap="nowrap"
+                            />
+                            <BadgeRow
+                              heading="ID"
+                              badges={[webhook.id]}
+                              tone="default"
+                              wrap="nowrap"
+                            />
+                            <BadgeRow
+                              heading="URL"
+                              badges={[webhook.url]}
+                              tone="default"
+                              wrap="nowrap"
+                            />
+                          </Stack>
                         </Stack>
-                      </Stack>
-                    </Flex>
-                  </Card>
-                </Link>
-              ))}
+                      </Flex>
+                    </Card>
+                  </Link>
+                ))}
             </Stack>
           </WebhooksList>
 
