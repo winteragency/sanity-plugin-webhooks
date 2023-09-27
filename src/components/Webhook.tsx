@@ -56,23 +56,24 @@ export function Webhook({
     <Stack space={[3, 3, 4]}>
       {isLoading && (
         <Flex align="center" justify="center">
-          {<Spinner muted />}
+          <Spinner muted />
         </Flex>
       )}
 
-      {data && data.length === 0 && (
+      {!isLoading && data && data.length === 0 && (
         <Card padding={[1, 2]} radius={3} tone="caution">
           Found no events.
         </Card>
       )}
 
-      {data?.map((row) => (
-        <WebhookAttempt
-          key={row.id}
-          attempt={row}
-          webhookBodyComponent={webhookBodyComponent}
-        />
-      ))}
+      {!isLoading &&
+        data?.map((row) => (
+          <WebhookAttempt
+            key={row.id}
+            attempt={row}
+            webhookBodyComponent={webhookBodyComponent}
+          />
+        ))}
     </Stack>
   );
 }
