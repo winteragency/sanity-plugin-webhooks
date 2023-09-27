@@ -1,6 +1,8 @@
 import { PlugIcon } from '@sanity/icons';
+import { FC } from 'react';
 import { definePlugin } from 'sanity';
 import { route } from 'sanity/router';
+import { DefaultWebhookBody } from './components/DefaultWebhookBody';
 import { Webhooks } from './components/Webhooks';
 import { type WebhookBodyComponentProps } from './types/WebhookBodyComponentProps';
 
@@ -8,7 +10,7 @@ export interface WebhooksPluginConfig {
   /**  Refresh interval for webhook events in milliseconds; set to 0 to disable live reload */
   refreshInterval?: number;
   /** Component that displays the webhook request result */
-  webhookBodyComponent?: React.FC<WebhookBodyComponentProps>;
+  webhookBodyComponent?: FC<WebhookBodyComponentProps>;
 }
 
 /**
@@ -49,7 +51,9 @@ export const webhooks = definePlugin<WebhooksPluginConfig | void>(
                 ? undefined
                 : config?.refreshInterval || 10000
             }
-            webhookBodyComponent={config?.webhookBodyComponent}
+            webhookBodyComponent={
+              config?.webhookBodyComponent || DefaultWebhookBody
+            }
           />
         )
       }

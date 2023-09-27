@@ -1,4 +1,5 @@
 import { Flex, Spinner, Stack } from '@sanity/ui';
+import { FC } from 'react';
 import { useClient, useProjectId } from 'sanity';
 import useSWR, { type SWRResponse } from 'swr';
 import type { SanityWebhookAttempt } from '../types/SanityWebhookAttempt';
@@ -7,8 +8,8 @@ import { WebhookAttempt } from './WebhookAttempt';
 
 export interface WebhookProps {
   webhookId: string;
-  refreshInterval?: number;
-  webhookBodyComponent?: React.FC<WebhookBodyComponentProps>;
+  refreshInterval: number | undefined;
+  webhookBodyComponent: FC<WebhookBodyComponentProps>;
 }
 
 export function Webhook({

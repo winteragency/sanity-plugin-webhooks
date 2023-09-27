@@ -17,20 +17,19 @@ import {
   formatDuration,
   intervalToDuration
 } from 'date-fns';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { SanityWebhookAttempt } from '../types/SanityWebhookAttempt';
 import { WebhookBodyComponentProps } from '../types/WebhookBodyComponentProps';
 import { BadgeRow } from './BadgeRow';
-import { DefaultWebhookBody } from './DefaultWebhookBody';
 
 export interface WebhookAttemptProps {
   attempt: SanityWebhookAttempt;
-  webhookBodyComponent?: React.FC<WebhookBodyComponentProps>;
+  webhookBodyComponent: FC<WebhookBodyComponentProps>;
 }
 
 export function WebhookAttempt({
   attempt,
-  webhookBodyComponent
+  webhookBodyComponent: WebhookBody
 }: WebhookAttemptProps) {
   const [showResponse, setShowResponse] = useState(false);
   const formatDistanceLocale: { [s: string]: string } = {
@@ -38,9 +37,6 @@ export function WebhookAttempt({
     xMinutes: '{{count}}m',
     xHours: '{{count}}h'
   };
-
-  // Injectable components
-  const WebhookBody = webhookBodyComponent || DefaultWebhookBody;
 
   return (
     <Card key={attempt.id} padding={[3, 3, 3, 4]} radius={2} shadow={1}>

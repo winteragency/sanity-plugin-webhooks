@@ -1,5 +1,5 @@
 import { Badge, Card, Flex, Heading, Inline, Stack, Text } from '@sanity/ui';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useClient, useDataset, useProjectId } from 'sanity';
 import { Link, useRouter } from 'sanity/router';
 import styled from 'styled-components';
@@ -24,8 +24,8 @@ const WebhooksList = styled.div`
 `;
 
 export interface WebhooksProps {
-  refreshInterval?: number;
-  webhookBodyComponent?: React.FC<WebhookBodyComponentProps>;
+  refreshInterval: number | undefined;
+  webhookBodyComponent: FC<WebhookBodyComponentProps>;
 }
 
 export function Webhooks({
