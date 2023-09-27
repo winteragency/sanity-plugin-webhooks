@@ -47,12 +47,13 @@ export function Webhooks({
       })
   );
 
-  const webhooks = webhooksResponse?.data?.filter(
-    (webhook) =>
-      webhook.dataset === '*' ||
-      (Array.isArray(webhook.dataset) && webhook.dataset.includes(dataset)) ||
-      webhook.dataset === dataset
-  );
+  const webhooks =
+    webhooksResponse?.data?.filter(
+      (webhook) =>
+        webhook.dataset === '*' ||
+        (Array.isArray(webhook.dataset) && webhook.dataset.includes(dataset)) ||
+        webhook.dataset === dataset
+    ) || [];
 
   useEffect(() => {
     if (router.state) {
@@ -72,6 +73,12 @@ export function Webhooks({
                   Webhooks
                 </Heading>
               </Inline>
+
+              {webhooks.length === 0 && (
+                <Card padding={[1, 2]} radius={3} tone="caution">
+                  No webhooks are configured for the current dataset.
+                </Card>
+              )}
 
               {webhooks?.map((webhook) => (
                 <Link

@@ -1,4 +1,4 @@
-import { Flex, Spinner, Stack } from '@sanity/ui';
+import { Card, Flex, Spinner, Stack } from '@sanity/ui';
 import { FC } from 'react';
 import { useClient, useProjectId } from 'sanity';
 import useSWR, { type SWRResponse } from 'swr';
@@ -58,6 +58,12 @@ export function Webhook({
         <Flex align="center" justify="center">
           {<Spinner muted />}
         </Flex>
+      )}
+
+      {data && data.length === 0 && (
+        <Card padding={[1, 2]} radius={3} tone="caution">
+          Found no events.
+        </Card>
       )}
 
       {data?.map((row) => (
