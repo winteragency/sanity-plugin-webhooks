@@ -11,5 +11,10 @@
     "plugin:react-hooks/recommended",
     "plugin:prettier/recommended",
     "plugin:react/jsx-runtime"
-  ]
+  ],
+  "rules": {
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
+    "no-nested-ternary": "off"
+  }
 }

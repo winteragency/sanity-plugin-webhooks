@@ -1,5 +1,5 @@
 import { Badge, Card, Flex, Heading, Inline, Stack, Text } from '@sanity/ui';
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useClient, useDataset, useProjectId } from 'sanity';
 import { Link, useRouter } from 'sanity/router';
 import styled from 'styled-components';
@@ -24,8 +24,8 @@ const WebhooksList = styled.div`
 `;
 
 export interface WebhooksProps {
-  refreshInterval?: number;
-  webhookBodyComponent?: React.FC<WebhookBodyComponentProps>;
+  refreshInterval: number | undefined;
+  webhookBodyComponent: FC<WebhookBodyComponentProps>;
 }
 
 export function Webhooks({
@@ -47,12 +47,13 @@ export function Webhooks({
       })
   );
 
-  const webhooks = webhooksResponse?.data?.filter(
-    (webhook) =>
-      webhook.dataset === '*' ||
-      (Array.isArray(webhook.dataset) && webhook.dataset.includes(dataset)) ||
-      webhook.dataset === dataset
-  );
+  const webhooks =
+    webhooksResponse?.data?.filter(
+      (webhook) =>
+        webhook.dataset === '*' ||
+        (Array.isArray(webhook.dataset) && webhook.dataset.includes(dataset)) ||
+        webhook.dataset === dataset
+    ) || [];
 
   useEffect(() => {
     if (router.state) {
@@ -72,6 +73,12 @@ export function Webhooks({
                   Webhooks
                 </Heading>
               </Inline>
+
+              {webhooks.length === 0 && (
+                <Card padding={[1, 2]} radius={3} tone="caution">
+                  No webhooks are configured for the current dataset.
+                </Card>
+              )}
 
               {webhooks?.map((webhook) => (
                 <Link
