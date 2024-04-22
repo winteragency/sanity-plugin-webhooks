@@ -89,7 +89,7 @@ export function Webhooks({refreshInterval, webhookBodyComponent}: WebhooksProps)
                   <Link
                     key={webhook.id}
                     href={`${
-                      router.resolvePathFromState(router.state).split('/webhooks/')[0]
+                      router.resolvePathFromState(router.state).split('/webhooks')[0]
                     }/webhooks/${webhook.id}`}
                   >
                     <Card
