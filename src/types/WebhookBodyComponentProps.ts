@@ -1,5 +1,5 @@
-import type { SanityWebhookAttempt } from './SanityWebhookAttempt';
+import type {SanityWebhookAttempt} from './SanityWebhookAttempt'
 
 export interface WebhookBodyComponentProps {
-  attempt: SanityWebhookAttempt;
+  attempt: SanityWebhookAttempt
 }

@@ -1,22 +1,14 @@
-import {
-  Badge,
-  Card,
-  Flex,
-  Heading,
-  Inline,
-  Spinner,
-  Stack,
-  Text
-} from '@sanity/ui';
-import { FC, useEffect, useState } from 'react';
-import { useClient, useDataset, useProjectId } from 'sanity';
-import { Link, useRouter } from 'sanity/router';
-import styled from 'styled-components';
-import useSWR, { type SWRResponse } from 'swr';
-import { type SanityWebhook } from '../types/SanityWebhook';
-import { WebhookBodyComponentProps } from '../types/WebhookBodyComponentProps';
-import { BadgeRow } from './BadgeRow';
-import { Webhook } from './Webhook';
+import {Badge, Card, Flex, Heading, Inline, Spinner, Stack, Text} from '@sanity/ui'
+import {FC, useEffect, useState} from 'react'
+import {useClient, useDataset, useProjectId} from 'sanity'
+import {Link, useRouter} from 'sanity/router'
+import styled from 'styled-components'
+import useSWR, {type SWRResponse} from 'swr'
+
+import {type SanityWebhook} from '../types/SanityWebhook'
+import {WebhookBodyComponentProps} from '../types/WebhookBodyComponentProps'
+import {BadgeRow} from './BadgeRow'
+import {Webhook} from './Webhook'
 
 const LayoutWrapper = styled(Flex)`
   flex-direction: column;
@@ -24,52 +16,49 @@ const LayoutWrapper = styled(Flex)`
   @media (min-width: 1000px) {
     flex-direction: row;
   }
-`;
+`
 
 const WebhooksList = styled.div`
   @media (min-width: 1000px) {
     flex: 0 0 500px;
   }
-`;
+`
 
 export interface WebhooksProps {
-  refreshInterval: number | undefined;
-  webhookBodyComponent: FC<WebhookBodyComponentProps>;
+  refreshInterval: number | undefined
+  webhookBodyComponent: FC<WebhookBodyComponentProps>
 }
 
-export function Webhooks({
-  refreshInterval,
-  webhookBodyComponent
-}: WebhooksProps) {
-  const apiVersion = '2023-06-21';
-  const router = useRouter();
-  const dataset = useDataset();
-  const projectId = useProjectId();
-  const [webhookId, setWebhookId] = useState<string | null>(null);
-  const client = useClient({ apiVersion }).withConfig({ requestTagPrefix: '' });
+export function Webhooks({refreshInterval, webhookBodyComponent}: WebhooksProps) {
+  const apiVersion = '2023-06-21'
+  const router = useRouter()
+  const dataset = useDataset()
+  const projectId = useProjectId()
+  const [webhookId, setWebhookId] = useState<string | null>(null)
+  const client = useClient({apiVersion}).withConfig({requestTagPrefix: ''})
 
-  const { isLoading, data }: SWRResponse<SanityWebhook[], Error> = useSWR(
+  const {isLoading, data}: SWRResponse<SanityWebhook[], Error> = useSWR(
     `hooks/projects/${projectId}`,
     (uri: string) =>
       client.request({
-        uri
-      })
-  );
+        uri,
+      }),
+  )
 
   const webhooks =
     data?.filter(
       (webhook) =>
         webhook.dataset === '*' ||
         (Array.isArray(webhook.dataset) && webhook.dataset.includes(dataset)) ||
-        webhook.dataset === dataset
-    ) || [];
+        webhook.dataset === dataset,
+    ) || []
 
   useEffect(() => {
     if (router.state) {
       // Navigated to a webhook
-      setWebhookId(router.state.webhookId as string);
+      setWebhookId(router.state.webhookId as string)
     }
-  }, [router.state]);
+  }, [router.state])
 
   return (
     <>
@@ -100,37 +89,22 @@ export function Webhooks({
                   <Link
                     key={webhook.id}
                     href={`${
-                      router
-                        .resolvePathFromState(router.state)
-                        .split('/webhooks/')[0]
+                      router.resolvePathFromState(router.state).split('/webhooks/')[0]
                     }/webhooks/${webhook.id}`}
                   >
                     <Card
                       padding={[3, 3, 3, 4]}
                       radius={2}
                       shadow={1}
-                      tone={
-                        webhookId && webhookId === webhook.id
-                          ? 'primary'
-                          : undefined
-                      }
+                      tone={webhookId && webhookId === webhook.id ? 'primary' : undefined}
                     >
                       <Flex justify="space-between" align="center">
                         <Stack space={4}>
                           <Text size={[2, 3]}>
-                            <Flex
-                              wrap="wrap"
-                              gap={[3]}
-                              style={{ rowGap: 2 }}
-                              align="center"
-                            >
+                            <Flex wrap="wrap" gap={[3]} style={{rowGap: 2}} align="center">
                               {webhook.name}
                               <Inline>
-                                <Badge
-                                  tone={
-                                    webhook.isDisabled ? 'critical' : 'positive'
-                                  }
-                                >
+                                <Badge tone={webhook.isDisabled ? 'critical' : 'positive'}>
                                   {webhook.isDisabled ? 'Disabled' : 'Enabled'}
                                 </Badge>
                               </Inline>
@@ -165,7 +139,7 @@ export function Webhooks({
             </Stack>
           </WebhooksList>
 
-          <Stack space={[3, 3, 3, 4]} style={{ flexGrow: '1' }}>
+          <Stack space={[3, 3, 3, 4]} style={{flexGrow: '1'}}>
             {webhookId && (
               <div>
                 <Inline
@@ -174,11 +148,7 @@ export function Webhooks({
                   paddingTop={[3, 3, 3, 0]}
                 >
                   <Heading as="h2" size={2}>
-                    Events for{' '}
-                    {
-                      webhooks?.find((webhook) => webhook.id === webhookId)
-                        ?.name
-                    }
+                    Events for {webhooks?.find((webhook) => webhook.id === webhookId)?.name}
                   </Heading>
                 </Inline>
                 <Stack space={[3, 3, 3, 4]}>
@@ -194,5 +164,5 @@ export function Webhooks({
         </LayoutWrapper>
       </Card>
     </>
-  );
+  )
 }

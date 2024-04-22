@@ -1,25 +1,17 @@
-import {
-  Badge,
-  BadgeTone,
-  Flex,
-  FlexAlign,
-  FlexWrap,
-  Inline,
-  Label
-} from '@sanity/ui';
+import {Badge, BadgeTone, Flex, FlexAlign, FlexWrap, Inline, Label} from '@sanity/ui'
 
 export function BadgeRow({
   heading,
   badges,
   align = 'center',
   wrap = 'wrap',
-  tone = 'primary'
+  tone = 'primary',
 }: {
-  heading: string;
-  badges: string[];
-  align?: FlexAlign | FlexAlign[];
-  wrap?: FlexWrap | FlexWrap[];
-  tone?: BadgeTone;
+  heading: string
+  badges: string[]
+  align?: FlexAlign | FlexAlign[]
+  wrap?: FlexWrap | FlexWrap[]
+  tone?: BadgeTone
 }) {
   return (
     <Flex gap={2} align={align} wrap={wrap}>
@@ -27,12 +19,10 @@ export function BadgeRow({
       {badges.map((tag: string) => (
         <Inline key={tag}>
           <Badge mode="outline" tone={tone}>
-            <span style={{ textTransform: 'none', wordBreak: 'break-word' }}>
-              {tag}
-            </span>
+            <span style={{textTransform: 'none', wordBreak: 'break-word'}}>{tag}</span>
           </Badge>
         </Inline>
       ))}
     </Flex>
-  );
+  )
 }

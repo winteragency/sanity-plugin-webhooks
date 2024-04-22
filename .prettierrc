@@ -1,9 +1,6 @@
 {
-  "$schema": "http://json.schemastore.org/prettierrc",
-  "endOfLine": "lf",
-  "printWidth": 80,
-  "tabWidth": 2,
-  "trailingComma": "none",
-  "singleQuote": true,
-  "plugins": ["prettier-plugin-organize-imports"]
+  "semi": false,
+  "printWidth": 100,
+  "bracketSpacing": false,
+  "singleQuote": true
 }
