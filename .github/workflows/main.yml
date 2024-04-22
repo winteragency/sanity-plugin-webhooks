@@ -49,7 +49,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           #cache: npm
-          node-version: lts/*
+          node-version: 18
       - run: npm clean-install
         # Linting can be skipped
       - run: npm run lint --if-present
@@ -71,7 +71,7 @@ jobs:
       matrix:
         # Run the testing suite on each major OS with the latest LTS release of Node.js
         os: [macos-latest, ubuntu-latest, windows-latest]
-        node: [lts/*]
+        node: [18]
         # It makes sense to also test the oldest, and latest, versions of Node.js, on ubuntu-only since it's the fastest CI runner
         include:
           - os: ubuntu-latest
@@ -115,7 +115,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           #cache: npm
-          node-version: lts/*
+          node-version: 18
       - run: npm clean-install
       - run: npm audit signatures
         # Branches that will release new versions are defined in .releaserc.json
