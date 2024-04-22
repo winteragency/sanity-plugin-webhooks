@@ -43,7 +43,6 @@
     "link-watch": "plugin-kit link-watch",
     "lint": "eslint .",
     "prepublishOnly": "npm run build",
-    "prepare": "lefthook install",
     "watch": "pkg-utils watch --strict",
     "check:types": "tsc --pretty --noEmit",
     "check:format": "prettier --check .",
