@@ -5,6 +5,16 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0](https://github.com/winteragency/sanity-plugin-webhooks/compare/v1.1.0...v2.0.0) (2026-03-10)
+
+### ⚠ BREAKING CHANGES
+
+* migrate to ESM and require Sanity 5 and React 19
+
+### Features
+
+* migrate to ESM and require Sanity 5 and React 19 ([e6dfbb2](https://github.com/winteragency/sanity-plugin-webhooks/commit/e6dfbb20b38a411a27c59595e5111583a57cbaf4))
+
 ## [1.1.0](https://github.com/winteragency/sanity-plugin-webhooks/compare/v1.0.0...v1.1.0) (2024-04-22)
 
 ### Features
