@@ -71,6 +71,7 @@ export function Webhooks({refreshInterval, webhookBodyComponent}: WebhooksProps)
   useEffect(() => {
     if (router.state) {
       // Navigated to a webhook
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setWebhookId(router.state.webhookId as string)
     }
   }, [router.state])

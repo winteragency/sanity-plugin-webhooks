@@ -32,6 +32,7 @@ export function Webhook({webhookId, refreshInterval, webhookBodyComponent}: Webh
         try {
           resultBody = JSON.parse(attempt.resultBody)
           resultIsJson = true
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (e) {
           // Not valid JSON - response could be something different
         }
