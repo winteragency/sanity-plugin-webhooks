@@ -50,7 +50,7 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           cache: npm
-          node-version: lts/*
+          node-version-file: .nvmrc
           registry-url: https://registry.npmjs.org
       - run: npm clean-install
         # Linting can be skipped
@@ -117,7 +117,7 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           cache: npm
-          node-version: lts/*
+          node-version-file: .nvmrc
       - run: npm clean-install
       - run: npm audit signatures
         # Branches that will release new versions are defined in .releaserc.json
