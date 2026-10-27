@@ -39,6 +39,8 @@ const AttemptsList = styled(Stack)`
   height: 100%;
 `
 
+const isDisabled = (webhook: SanityWebhook) => webhook.isDisabled || webhook.isDisabledByUser
+
 export interface WebhooksProps {
   refreshInterval: number | undefined
   webhookBodyComponent: FC<WebhookBodyComponentProps>
@@ -116,8 +118,8 @@ export function Webhooks({refreshInterval, webhookBodyComponent}: WebhooksProps)
                         <Flex wrap="wrap" gap={[3]} style={{rowGap: 2}} align="center">
                           {webhook.name}
                           <Inline>
-                            <Badge tone={webhook.isDisabled ? 'critical' : 'positive'}>
-                              {webhook.isDisabled ? 'Disabled' : 'Enabled'}
+                            <Badge tone={isDisabled(webhook) ? 'critical' : 'positive'}>
+                              {isDisabled(webhook) ? 'Disabled' : 'Enabled'}
                             </Badge>
                           </Inline>
                         </Flex>
