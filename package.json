@@ -1,6 +1,6 @@
 {
   "name": "sanity-plugin-webhooks",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A tool that lists your Sanity webhooks and displays their events along with status, duration and response.",
   "keywords": [
     "sanity",

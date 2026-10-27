@@ -5,6 +5,13 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.1](https://github.com/winteragency/sanity-plugin-webhooks/compare/v2.0.0...v2.0.1) (2026-10-27)
+
+### Bug Fixes
+
+* import styled as a named export from styled-components ([#10](https://github.com/winteragency/sanity-plugin-webhooks/issues/10)) ([f4b7a85](https://github.com/winteragency/sanity-plugin-webhooks/commit/f4b7a85bb3992e3ce96b44cbdb8a74e8e2d9f213)), closes [#4](https://github.com/winteragency/sanity-plugin-webhooks/issues/4)
+* show webhooks disabled by a user as disabled ([#9](https://github.com/winteragency/sanity-plugin-webhooks/issues/9)) ([74de566](https://github.com/winteragency/sanity-plugin-webhooks/commit/74de5663a714c5006179091141f220ddf57334d8)), closes [#5](https://github.com/winteragency/sanity-plugin-webhooks/issues/5)
+
 ## [2.0.0](https://github.com/winteragency/sanity-plugin-webhooks/compare/v1.1.0...v2.0.0) (2026-03-10)
 
 ### ⚠ BREAKING CHANGES
