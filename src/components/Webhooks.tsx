@@ -2,7 +2,7 @@ import {Badge, Box, Card, Flex, Heading, Inline, Spinner, Stack, Text} from '@sa
 import {FC, useEffect, useState} from 'react'
 import {useClient, useDataset, useProjectId} from 'sanity'
 import {Link, useRouter} from 'sanity/router'
-import styled from 'styled-components'
+import {styled} from 'styled-components'
 import useSWR, {type SWRResponse} from 'swr'
 
 import {type SanityWebhook} from '../types/SanityWebhook'
